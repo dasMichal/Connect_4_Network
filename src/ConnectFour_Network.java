@@ -8,6 +8,7 @@ public class ConnectFour_Network {
 
         // create an array with the size of the needed connect four field
         char[][] array = new char[6][7];
+        //Test
 
         // fill the complete array with ' ' (equals empty on the field)
         for (int i = 0; i < 6; i++) {
