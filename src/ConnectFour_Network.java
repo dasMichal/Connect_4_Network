@@ -1,10 +1,15 @@
 import java.util.Scanner;
 
-public class ConnectFour_Network {
+public class ConnectFour_Network extends networkClient {
+
 
     public static void main(String[] args) {
 
         Scanner input = new Scanner(System.in);
+
+        backgroundNetwork myThread = new backgroundNetwork();
+        myThread.start();
+
 
         // create an array with the size of the needed connect four field
         char[][] array = new char[6][7];
@@ -197,10 +202,13 @@ public class ConnectFour_Network {
             if (array[i][column ] == ' ') {
                 if (player == 1) {
                     array[i][column] = 'X';
+
+                    networkClient.sendMessage(player,column);
                     break;
                 }
                 else {
                     array[i][column] = 'O';
+                    networkClient.sendMessage(player,column);
                     break;
                 }
             }
