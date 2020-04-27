@@ -137,8 +137,10 @@ public class ConnectFour_Network extends networkClient {
 
         if (userChoice == 1)
         {
+            System.out.print("NetworkServer started in background thread");
+            System.out.println(play2+" is in Networke Mode");
             backgroundNetwork myThread = new backgroundNetwork();
-            myThread.start();
+            //myThread.start();
              networkmode = true;
 
 
@@ -168,6 +170,11 @@ public class ConnectFour_Network extends networkClient {
                     {
                         player = 2;
                         System.out.println("\n" + play2 + "'s turn ");
+                        if (networkmode)
+                        {
+                            System.out.println("Waiting for network answer");
+
+                        }
                     }
 
                     System.out.print("Input the number of the column [1-7] to insert : ");
