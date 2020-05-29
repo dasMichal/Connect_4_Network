@@ -92,7 +92,7 @@ public class ConnectFour_Network extends netwokCore {
 
             System.out.println("Please Input the IP Adress of the Other Player");
             System.out.println("Your IP Adress is "+inetAddress.getHostAddress());
-            System.out.println("Example: xxx.xxx.xxx.xxx ");
+            System.out.print(">>> ");
             String ip_adress = input.next();
 
             if (isValidInet4Address(ip_adress))
