@@ -23,6 +23,7 @@ public class backgroundNetwork extends Thread
 
 	public static void serverStart() throws IOException
 	{
+
 		System.out.println("Network Tread Started on Port 6666");
 		//create the socket server object
 		server = new ServerSocket(port);
@@ -59,9 +60,6 @@ public class backgroundNetwork extends Thread
 		server.close();
 
 	}
-
-
-
 
 
 

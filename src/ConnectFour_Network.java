@@ -1,10 +1,11 @@
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class ConnectFour_Network extends networkClient {
+public class ConnectFour_Network extends netwokCore {
 
 
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
 
         Scanner input = new Scanner(System.in);
@@ -28,6 +29,7 @@ public class ConnectFour_Network extends networkClient {
         String play1 = "Player X";
         String play2 = "Player O";
         String nameInput = "";
+        String s = null;
         int player;
         int column;
         int playerID = 0;
@@ -137,11 +139,11 @@ public class ConnectFour_Network extends networkClient {
 
         if (userChoice == 1)
         {
-            System.out.print("NetworkServer started in background thread");
+            System.out.println("NetworkServer started in background thread");
             System.out.println(play2+" is in Networke Mode");
-            backgroundNetwork myThread = new backgroundNetwork();
+            //backgroundNetwork myThread = new backgroundNetwork();
             //myThread.start();
-             networkmode = true;
+            networkmode = true;
 
 
         } else
@@ -166,19 +168,27 @@ public class ConnectFour_Network extends networkClient {
                     {
                         player = 1;
                         System.out.println("\n" + play1 + "'s turn ");
+                        System.out.print("Input the number of the column [1-7] to insert : ");
+                        s = input.next();
+
                     } else
                     {
                         player = 2;
                         System.out.println("\n" + play2 + "'s turn ");
+                        System.out.print("Input the number of the column [1-7] to insert : ");
                         if (networkmode)
                         {
                             System.out.println("Waiting for network answer");
-
+                            reciverNet();
+                            String[] dat = getData();
+                            s = dat[1];
                         }
                     }
 
-                    System.out.print("Input the number of the column [1-7] to insert : ");
-                    String s = input.next();
+
+                    //System.out.print("Input the number of the column [1-7] to insert : ");
+
+                    //s = input.next();
 
                     // check if the user input only contains digits
                     inputOnlyDigits = true;

@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
-public class networkClient2
+public class networkClient2_chat
 {
 
 
