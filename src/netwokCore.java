@@ -57,7 +57,7 @@ class netwokCore
 
 	}
 
-	public static void transmittNet(String column,String playerID,String misc) throws IOException
+	public static void transmittNet(String column,String playerID) throws IOException
 	{
 		String eingabe;
 
@@ -77,7 +77,7 @@ class netwokCore
 			playerS = String.valueOf(playerID);
 			columnS = String.valueOf(column);
 
-			ausgabe = (playerS+","+columnS+","+misc);
+			ausgabe = (playerS+","+columnS);
 			out.printf(ausgabe);
 
 

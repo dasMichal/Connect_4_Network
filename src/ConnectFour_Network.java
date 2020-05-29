@@ -165,7 +165,7 @@ public class ConnectFour_Network extends netwokCore {
                         }else
                         {
                             s = input.next();
-                            transmittNet(s,play1,misc);
+                            transmittNet(s,play1);
                         }
 
 
@@ -185,7 +185,7 @@ public class ConnectFour_Network extends netwokCore {
                         }else
                         {
                             s = input.next();
-                            transmittNet(s,play2,misc);
+                            transmittNet(s,play2);
                         }
                     }
 
