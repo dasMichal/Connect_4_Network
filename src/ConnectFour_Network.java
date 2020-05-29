@@ -86,8 +86,11 @@ public class ConnectFour_Network extends netwokCore {
 
         } while (!inputOnlyDigits);
 
+
+        /*
         if (userChoice ==1)
         {
+
             InetAddress inetAddress = InetAddress.getLocalHost();
 
             System.out.println("Please Input the IP Adress of the Other Player");
@@ -103,10 +106,15 @@ public class ConnectFour_Network extends netwokCore {
             {
                 System.out.print("The IP address " + ip_adress + " isn't valid");
             }
+
+
+
             //TODO: Kannst du hier eine schleife machen, die solange geht bis eine valide IP eingegeben wurde?
-            //TODO: Und Portabfrage. Der Setter setPort ist scoh eingerichtet.
+            //TODO: Und Portabfrage. Der Setter setPort ist schon eingerichtet.
 
         }
+        */
+
         if (userChoice == 1)
         {
 
@@ -185,7 +193,7 @@ public class ConnectFour_Network extends netwokCore {
                         }else
                         {
                             s = input.next();
-                            transmittNet(s,play2);
+                            //transmittNet(s,play2,1);
                         }
                     }
 
@@ -232,14 +240,14 @@ public class ConnectFour_Network extends netwokCore {
                 } while (column <= 0 || column > 7 || !inputOnlyDigits);
 
                 insertChip(player, column, array,networkmode);
-                if (networkPlay1)
+                if (!networkPlay1)
                 {
 
-                    transmittNet(s,play1);
-                }else if (networkPlay2)
+                    transmittNet(s,play1, (byte) 1);
+                }else if (!networkPlay2)
                 {
 
-                    transmittNet(s,play2);
+                    transmittNet(s,play2, (byte) 1);
 
                 }
                 playerID++;
