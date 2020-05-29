@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class ConnectFour_Network extends netwokCore {
 
@@ -29,81 +30,27 @@ public class ConnectFour_Network extends netwokCore {
         String play2 = "Player O";
         String nameInput = "";
         String s = null;
+        String misc= "Misc";
         int player;
         int column;
         int playerID = 0;
 
-        System.out.print("\n");
-        System.out.print("------------------CONNECT 4--------------------\n");
-        System.out.print("Do you want to set your playernames?\n");
-        System.out.print("-----------------------------------------------\n\n");
 
 
-        int userChoice = 1;
-        boolean inputOnlyDigits = false;
 
 
-        do
-        {
-            System.out.print("[1] = Yes | [2] = No: ");
-            String userChoiceString = input.next();
 
-            // check if the user input only contains digits
-            inputOnlyDigits = true;
-            for (int i = 0; i < userChoiceString.length(); i++)
-            {
-                if (!Character.isDigit(userChoiceString.charAt(i)))
-                {
-                    inputOnlyDigits = false;
-                }
-            }
-            // user input only contains numbers
-            if (inputOnlyDigits)
-            {
-                // convert string to int
-                userChoice = Integer.parseInt(userChoiceString);
-            }
-            // user input not only contains numbers
-            if (inputOnlyDigits == false)
-            {
-                System.out.println("Invalid input! Must be a number.");
-            }
-            // user input is not 1 or 2
-            else if (userChoice < 1 || userChoice > 2)
-            {
-                System.out.println("Invalid input! Enter 1 or 2.");
-                inputOnlyDigits = false;
-            }
-
-        } while (!inputOnlyDigits);
-
-        if (userChoice == 1)
-        {
-            System.out.println("Current name: " + play1);
-            System.out.print("New Name: ");
-            nameInput = input.next();
-
-            play1 = nameInput;
-
-            System.out.println("New playername set to: " + play1 + "\n");
-
-            System.out.println("Current name: " + play2);
-            System.out.print("New Name: ");
-            nameInput = input.next();
-
-            play2 = nameInput;
-            System.out.println("New playername set to: " + play2 + "\n");
-
-        }
-
-        inputOnlyDigits = false;
         System.out.print("\n");
         System.out.print("------------------CONNECT 4--------------------\n");
         System.out.print("Do you want to play in Online mode?\n");
         System.out.print("-----------------------------------------------\n\n");
+
         boolean networkmode = false;
         boolean networkPlay1 = false;
         boolean networkPlay2 = false;
+
+        int userChoice = 1;
+        boolean inputOnlyDigits = false;
 
         do
         {
@@ -139,10 +86,26 @@ public class ConnectFour_Network extends netwokCore {
 
         } while (!inputOnlyDigits);
 
+
+        System.out.println("Please Input the IP Adress of the Other Player");
+        System.out.println("Example:xxx.xxx.xxx.xxx ");
+        String ip_adress = input.next();
+
+        if (isValidInet4Address(ip_adress)) {
+            System.out.print("The IP address " + ip_adress + " is valid");
+            setIp_adress(ip_adress);
+        }
+        else {
+            System.out.print("The IP address " + ip_adress + " isn't valid");
+        }
+            //TODO: Kannst du hier eine schleife machen, die solange geht bis eine valide IP eingegeben wurde?
+            //TODO: Und Portabfrage. Der Setter setPort ist scoh eingerichtet.
+
+
         if (userChoice == 1)
         {
-            System.out.println("NetworkServer started in background thread");
-            System.out.println("Which player are you?");
+
+            System.out.println("\nAre you playing as Player[1] or Player[2]?");
             int eingabe = input.nextInt();
             if (eingabe == 1)
             {
@@ -155,12 +118,6 @@ public class ConnectFour_Network extends netwokCore {
             }
             //TODO: Abfangen von falschen eingaben muss noch gemacht werden
 
-
-
-
-
-            //backgroundNetwork myThread = new backgroundNetwork();
-            //myThread.start();
             networkmode = true;
 
 
@@ -168,6 +125,13 @@ public class ConnectFour_Network extends netwokCore {
         {
             System.out.println("Okay");
         }
+
+
+
+
+
+
+
 
 
             // execute loop while no one has won yet
@@ -196,7 +160,7 @@ public class ConnectFour_Network extends netwokCore {
                         }else
                         {
                             s = input.next();
-                            transmittNet(s,play1);
+                            transmittNet(s,play1,misc);
                         }
 
 
@@ -216,7 +180,7 @@ public class ConnectFour_Network extends netwokCore {
                         }else
                         {
                             s = input.next();
-                            transmittNet(s,play2);
+                            transmittNet(s,play2,misc);
                         }
                     }
 
