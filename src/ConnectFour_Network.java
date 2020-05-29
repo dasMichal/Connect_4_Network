@@ -165,7 +165,7 @@ public class ConnectFour_Network extends netwokCore {
                         }else
                         {
                             s = input.next();
-                            transmittNet(s,play1);
+                            //transmittNet(s,play1);
                         }
 
 
@@ -232,6 +232,16 @@ public class ConnectFour_Network extends netwokCore {
                 } while (column <= 0 || column > 7 || !inputOnlyDigits);
 
                 insertChip(player, column, array,networkmode);
+                if (networkPlay1)
+                {
+
+                    transmittNet(s,play1);
+                }else if (networkPlay2)
+                {
+
+                    transmittNet(s,play2);
+
+                }
                 playerID++;
             }
 
