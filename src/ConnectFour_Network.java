@@ -1,7 +1,7 @@
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class ConnectFour_Network extends netwokCore {
 
@@ -86,22 +86,27 @@ public class ConnectFour_Network extends netwokCore {
 
         } while (!inputOnlyDigits);
 
+        if (userChoice ==1)
+        {
+            InetAddress inetAddress = InetAddress.getLocalHost();
 
-        System.out.println("Please Input the IP Adress of the Other Player");
-        System.out.println("Example:xxx.xxx.xxx.xxx ");
-        String ip_adress = input.next();
+            System.out.println("Please Input the IP Adress of the Other Player");
+            System.out.println("Your IP Adress is "+inetAddress.getHostAddress());
+            System.out.println("Example: xxx.xxx.xxx.xxx ");
+            String ip_adress = input.next();
 
-        if (isValidInet4Address(ip_adress)) {
-            System.out.print("The IP address " + ip_adress + " is valid");
-            setIp_adress(ip_adress);
-        }
-        else {
-            System.out.print("The IP address " + ip_adress + " isn't valid");
-        }
+            if (isValidInet4Address(ip_adress))
+            {
+                System.out.print("The IP address " + ip_adress + " is valid");
+                setIp_adress(ip_adress);
+            } else
+            {
+                System.out.print("The IP address " + ip_adress + " isn't valid");
+            }
             //TODO: Kannst du hier eine schleife machen, die solange geht bis eine valide IP eingegeben wurde?
             //TODO: Und Portabfrage. Der Setter setPort ist scoh eingerichtet.
 
-
+        }
         if (userChoice == 1)
         {
 
