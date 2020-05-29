@@ -32,9 +32,10 @@ class netwokCore
 			//PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			DataInputStream din = new DataInputStream(socket.getInputStream());
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			String message = in.readLine();
+			//String message = in.readLine();
 
-
+			byte messageType = din.readByte();
+			String message = din.readUTF();
 
 			//System.out.println(">>> " + message);
 			try
@@ -46,9 +47,9 @@ class netwokCore
 			{
 				//System.out.println("oups no splitting");
 			}
-			//out.close();
 			//in.close();
 			socket.close();
+
 			//terminate the server if client sends exit request
 			if (message.equalsIgnoreCase("exit"))
 				//break;
@@ -64,8 +65,8 @@ class netwokCore
 		String eingabe;
 
 		try{
-			Socket socket = new Socket("localhost",port);
-			//Socket socket = new Socket("192.168.178.55",6666);
+			//Socket socket = new Socket("localhost",port);
+			Socket socket = new Socket("192.168.178.55",6666);
 
 			//Socket socket = new Socket(ip_adress,6666);
 			DataOutputStream dout =new DataOutputStream(socket.getOutputStream());
