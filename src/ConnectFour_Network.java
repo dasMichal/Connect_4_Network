@@ -10,8 +10,7 @@ public class ConnectFour_Network extends netwokCore {
 
         Scanner input = new Scanner(System.in);
 
-        //backgroundNetwork myThread = new backgroundNetwork();
-        // myThread.start();
+
 
         // create an array with the size of the needed connect four field
         char[][] array = new char[6][7];
@@ -103,6 +102,9 @@ public class ConnectFour_Network extends netwokCore {
         System.out.print("Do you want to play in Online mode?\n");
         System.out.print("-----------------------------------------------\n\n");
         boolean networkmode = false;
+        boolean networkPlay1 = false;
+        boolean networkPlay2 = false;
+
         do
         {
             System.out.print("[1] = Yes | [2] = No: ");
@@ -140,7 +142,23 @@ public class ConnectFour_Network extends netwokCore {
         if (userChoice == 1)
         {
             System.out.println("NetworkServer started in background thread");
-            System.out.println(play2+" is in Networke Mode");
+            System.out.println("Which player are you?");
+            int eingabe = input.nextInt();
+            if (eingabe == 1)
+            {
+                networkPlay2= true;
+                System.out.println(play2+" is in Networke Mode");
+            }else
+            {
+                networkPlay1= true;
+                System.out.println(play1+" is in Networke Mode");
+            }
+            //TODO: Abfangen von falschen eingaben muss noch gemacht werden
+
+
+
+
+
             //backgroundNetwork myThread = new backgroundNetwork();
             //myThread.start();
             networkmode = true;
@@ -169,19 +187,36 @@ public class ConnectFour_Network extends netwokCore {
                         player = 1;
                         System.out.println("\n" + play1 + "'s turn ");
                         System.out.print("Input the number of the column [1-7] to insert : ");
-                        s = input.next();
+                        if (networkPlay1)
+                        {
+                            System.out.println("Waiting for network answer");
+                            reciverNet();
+                            String[] dat = getData();
+                            s = dat[1];
+                        }else
+                        {
+                            s = input.next();
+                            transmittNet(s,play1);
+                        }
+
+
+
 
                     } else
                     {
                         player = 2;
                         System.out.println("\n" + play2 + "'s turn ");
                         System.out.print("Input the number of the column [1-7] to insert : ");
-                        if (networkmode)
+                        if (networkPlay2)
                         {
                             System.out.println("Waiting for network answer");
                             reciverNet();
                             String[] dat = getData();
                             s = dat[1];
+                        }else
+                        {
+                            s = input.next();
+                            transmittNet(s,play2);
                         }
                     }
 
@@ -291,12 +326,12 @@ public class ConnectFour_Network extends netwokCore {
                 if (player == 1)
                 {
                     array[i][column] = 'X';
-                    if(networkmode) networkClient.sendMessage(player, column);
+                    //if(networkmode) networkClient.sendMessage(player, column);
                     break;
                 } else
                 {
                     array[i][column] = 'O';
-                    if(networkmode) networkClient.sendMessage(player, column);
+                    //if(networkmode) networkClient.sendMessage(player, column);
                     break;
                 }
             }

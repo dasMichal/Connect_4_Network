@@ -6,7 +6,6 @@ class netwokCore
 {
 
 
-	private static ServerSocket server;
 	//socket server port on which it will listen
 	private static int port = 6666;
 
@@ -17,11 +16,11 @@ class netwokCore
 	{
 
 		//create the socket server object
-		server = new ServerSocket(port);
+		ServerSocket server = new ServerSocket(port);
 		//keep listens indefinitely until receives 'exit' call or program terminates
 
-		while (true)
-		{
+		//while (true)
+		//{
 			System.out.println("Waiting for the client request");
 			//creating socket and waiting for client connection
 			Socket socket = server.accept();
@@ -46,8 +45,9 @@ class netwokCore
 			//in.close();
 			socket.close();
 			//terminate the server if client sends exit request
-			if (message.equalsIgnoreCase("exit")) break;
-		}
+			if (message.equalsIgnoreCase("exit"))
+				//break;
+		//}
 		System.out.println("Shutting down Socket server!!");
 		//close the ServerSocket object
 		server.close();
@@ -59,7 +59,8 @@ class netwokCore
 		String eingabe;
 
 		try{
-			Socket socket = new Socket("localhost",port);
+			//Socket socket = new Socket("localhost",port);
+			Socket socket = new Socket("localhost",6666);
 			DataOutputStream dout =new DataOutputStream(socket.getOutputStream());
 
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
