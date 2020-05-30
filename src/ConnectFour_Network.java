@@ -54,7 +54,7 @@ public class ConnectFour_Network extends netwokCore {
 
         do
         {
-            System.out.print("[1] = Yes | [2] = No: ");
+            System.out.print("[1] = Yes | [2] = No ");
             String userChoiceString = input.next();
 
             // check if the user input only contains digits
@@ -86,41 +86,41 @@ public class ConnectFour_Network extends netwokCore {
 
         } while (!inputOnlyDigits);
 
-
+        boolean checkIP = false;
+        do {
         System.out.println("Please Input the IP Adress of the Other Player");
         System.out.println("Example:xxx.xxx.xxx.xxx ");
         String ip_adress = input.next();
 
-        if (isValidInet4Address(ip_adress)) {
-            System.out.print("The IP address " + ip_adress + " is valid");
-            setIp_adress(ip_adress);
-        }
-        else {
-            System.out.print("The IP address " + ip_adress + " isn't valid");
-        }
-            //TODO: Kannst du hier eine schleife machen, die solange geht bis eine valide IP eingegeben wurde?
+            if (isValidInet4Address(ip_adress)) {
+                System.out.print("The IP address " + ip_adress + " is valid");
+                setIp_adress(ip_adress);
+                checkIP = true;
+            } else {
+                System.out.print("The IP address " + ip_adress + " isn't valid");
+            }
             //TODO: Und Portabfrage. Der Setter setPort ist scoh eingerichtet.
-
+        }
+        while (!checkIP);
 
         if (userChoice == 1)
         {
 
             System.out.println("\nAre you playing as Player[1] or Player[2]?");
-            int eingabe = input.nextInt();
-            if (eingabe == 1)
-            {
-                networkPlay2= true;
-                System.out.println(play2+" is in Networke Mode");
-            }else
-            {
-                networkPlay1= true;
-                System.out.println(play1+" is in Networke Mode");
+            while (!networkmode) {
+                int eingabe = input.nextInt();
+                if (eingabe == 1) {
+                    networkPlay2 = true;
+                    System.out.println(play2 + " is in Networke Mode");
+                    networkmode = true;
+                } else if (eingabe == 2) {
+                    networkPlay1 = true;
+                    System.out.println(play1 + " is in Networke Mode");
+                    networkmode = true;
+                } else {
+                    System.out.println("Invalid input, try again");
+                }
             }
-            //TODO: Abfangen von falschen eingaben muss noch gemacht werden
-
-            networkmode = true;
-
-
         } else
         {
             System.out.println("Okay");
