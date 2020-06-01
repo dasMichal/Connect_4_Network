@@ -17,29 +17,31 @@ class netwokCore
 
 	public static void reciverNet() throws IOException
 	{
+		System.out.println("In ReciveNet");
+
 
 		//create the socket server object
 		ServerSocket server = new ServerSocket(port);
-		//keep listens indefinitely until receives 'exit' call or program terminates
 
-		//while (true)
-		//{
+
+
 			System.out.println("Waiting for the client request");
 			//creating socket and waiting for client connection
 			Socket socket = server.accept();
-
+			System.out.println("Server accept true");
 
 			//PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			DataInputStream din = new DataInputStream(socket.getInputStream());
-			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			//BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			//String message = in.readLine();
 
 			byte messageType = din.readByte();
 			String message = din.readUTF();
 
-			//System.out.println(">>> " + message);
+			System.out.println(">>> Recived " + message);
 			try
 			{
+				System.out.println("In Recive Try-catch");
 				data = message.split(",");
 				//System.out.println(">>> " + message);
 				//System.out.println(">>> " + data[0] + " Column " + data[1]);
@@ -47,13 +49,12 @@ class netwokCore
 			{
 				//System.out.println("oups no splitting");
 			}
+			System.out.println("Out of Recive Try-Catch");
 			//in.close();
-			socket.close();
 
-			//terminate the server if client sends exit request
-			if (message.equalsIgnoreCase("exit"))
-				//break;
-		//}
+
+
+
 		System.out.println("Shutting down Socket server!!");
 		//close the ServerSocket object
 		server.close();
@@ -63,12 +64,18 @@ class netwokCore
 	public static void transmittNet(String column,String playerID,byte type) throws IOException
 	{
 		String eingabe;
+		System.out.println("In TransmitteNet");
+
 
 		try{
+			System.out.println("In Transmitt Try-catch");
+
 			//Socket socket = new Socket("localhost",port);
 			Socket socket = new Socket("192.168.178.55",6666);
-
+			//Socket socket = new Socket("192.168.178.62",6665);
 			//Socket socket = new Socket(ip_adress,6666);
+			System.out.println("Set IP adress");
+
 			DataOutputStream dout =new DataOutputStream(socket.getOutputStream());
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			//BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -82,20 +89,21 @@ class netwokCore
 			columnS = String.valueOf(column);
 
 			ausgabe = (playerS+","+columnS);
+			System.out.println("Transmitting "+ausgabe);
 			//out.printf(ausgabe);
 			dout.writeByte(type);
 			dout.writeUTF(ausgabe);
 
-			//dout.flush();
+			System.out.println("flush");
+			dout.flush();
 			//dout.close();
-			socket.close();
+
 
 		}catch(Exception e)
 		{
 			System.out.println(e);
 		}
-
-
+		System.out.println("Out of Transmitt try-catch");
 
 	}
 
