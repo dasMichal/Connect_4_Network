@@ -12,7 +12,10 @@ public class networkClient2_chat
         String eingabe;
         int num=0;
         try{
-            Socket socket = new Socket("192.168.178.62",6666);
+           // Socket socket = new Socket("192.168.178.62",6666);
+            Socket socket = new Socket("192.168.178.55",6666);
+            //Socket socket = new Socket("localhost",6666);
+
             DataOutputStream dout =new DataOutputStream(socket.getOutputStream());
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -21,8 +24,12 @@ public class networkClient2_chat
             {
                 System.out.print("Gebe einen Text ein: ");
                 eingabe = input.nextLine();
-                out.println(eingabe);
-                //dout.writeUTF(eingabe);
+                dout.writeByte(1);
+                dout.writeUTF(eingabe);
+                dout.flush();
+
+
+                //out.println(eingabe);
                 num++;
             }while(!eingabe.equalsIgnoreCase("exit"));
 
