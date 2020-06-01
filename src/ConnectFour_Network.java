@@ -26,6 +26,7 @@ public class ConnectFour_Network extends netwokCore {
             }
         }
 
+
         String play1 = "Player X";
         String play2 = "Player O";
         String nameInput = "";
@@ -48,6 +49,7 @@ public class ConnectFour_Network extends netwokCore {
         boolean networkmode = false;
         boolean networkPlay1 = false;
         boolean networkPlay2 = false;
+        boolean reciver = false;
 
         int userChoice = 1;
         boolean inputOnlyDigits = false;
@@ -155,6 +157,7 @@ public class ConnectFour_Network extends netwokCore {
 
                 column = 0;
                 inputOnlyDigits = true;
+                reciver= false;
                 // this loop executes until the user gives a legal input for a column (1-7)
                 do
                 {
@@ -167,9 +170,11 @@ public class ConnectFour_Network extends netwokCore {
                         if (networkPlay1)
                         {
                             System.out.println("Waiting for network answer");
+                            reciver=true;
                             reciverNet();
                             String[] dat = getData();
                             s = dat[1];
+                            System.out.println("Recived "+s+" in main programm");
                         }else
                         {
                             s = input.next();
@@ -187,9 +192,11 @@ public class ConnectFour_Network extends netwokCore {
                         if (networkPlay2)
                         {
                             System.out.println("Waiting for network answer");
+                            reciver=true;
                             reciverNet();
                             String[] dat = getData();
                             s = dat[1];
+                            System.out.println("Recived "+s+" in main programm");
                         }else
                         {
                             s = input.next();
@@ -239,17 +246,25 @@ public class ConnectFour_Network extends netwokCore {
 
                 } while (column <= 0 || column > 7 || !inputOnlyDigits);
 
+                System.out.println("Inserting Chip from "+player);
                 insertChip(player, column, array,networkmode);
-                if (!networkPlay1)
-                {
 
-                    transmittNet(s,play1, (byte) 1);
-                }else if (!networkPlay2)
+                if(!reciver)
                 {
-
-                    transmittNet(s,play2, (byte) 1);
+                    if (!networkPlay1)
+                    {
+                        System.out.println("Inserting Chip for !netPlay1");
+                        //Transmitts Player 1 moves to Player 2 over network
+                        transmittNet(s,play1, (byte) 1);
+                    }else if (!networkPlay2)
+                    {
+                        System.out.println("Inserting Chip for !netPlay2");
+                        //Transmitts Player 2 moves to Player 1 over network
+                        transmittNet(s,play2, (byte) 1);
+                    }
 
                 }
+
                 playerID++;
             }
 
