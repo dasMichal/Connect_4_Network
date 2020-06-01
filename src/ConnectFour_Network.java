@@ -1,12 +1,10 @@
 import java.io.IOException;
-import java.net.InetAddress;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ConnectFour_Network extends netwokCore {
 
 
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args) throws IOException, InterruptedException
     {
 
         Scanner input = new Scanner(System.in);
@@ -246,19 +244,19 @@ public class ConnectFour_Network extends netwokCore {
 
                 } while (column <= 0 || column > 7 || !inputOnlyDigits);
 
-                System.out.println("Inserting Chip from "+player);
+                //System.out.println("Inserting Chip from "+player);
                 insertChip(player, column, array,networkmode);
 
-                if(!reciver)
+                if((!reciver) & (networkmode))
                 {
                     if (!networkPlay1)
                     {
-                        System.out.println("Inserting Chip for !netPlay1");
+                        //System.out.println("Inserting Chip for !netPlay1");
                         //Transmitts Player 1 moves to Player 2 over network
                         transmittNet(s,play1, (byte) 1);
                     }else if (!networkPlay2)
                     {
-                        System.out.println("Inserting Chip for !netPlay2");
+                        //System.out.println("Inserting Chip for !netPlay2");
                         //Transmitts Player 2 moves to Player 1 over network
                         transmittNet(s,play2, (byte) 1);
                     }
