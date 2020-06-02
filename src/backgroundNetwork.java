@@ -1,6 +1,7 @@
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.TreeMap;
 
 public class backgroundNetwork extends Thread
@@ -14,13 +15,14 @@ public class backgroundNetwork extends Thread
 			serverStart();
 		} catch (IOException e)
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println(e);
+			System.out.println("server Start isrt gestoppt");
 		}
 
 	}
 
-	public static void serverStart() throws IOException
-	{
+	public static void serverStart() throws IOException {
 
 		//socket server port on which it will listen
 		int port = 6665;
@@ -49,8 +51,9 @@ public class backgroundNetwork extends Thread
 			{
 				data = message.split(",");
 				//System.out.println("\n>>> Message Type: "+messageType);
-				System.out.println(">>> " + message);
+				System.out.println(">> " + message);
 				//System.out.println(">>> Player " + data[0] + " Column " + data[1]);
+				System.out.print(">>> \r");
 			} catch (Exception e)
 			{
 				//System.out.println("oups no splitting");

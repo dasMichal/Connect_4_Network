@@ -31,8 +31,8 @@ public class networkClient2_chat
 
 
             //Socket socket = new Socket("192.168.178.62",port);
-            //Socket socket = new Socket("192.168.178.55",port);
-            Socket socket = new Socket("localhost",port);
+            Socket socket = new Socket("192.168.178.55",port);
+            //Socket socket = new Socket("localhost",port);
 
 
             System.out.println("Connected");
@@ -43,7 +43,7 @@ public class networkClient2_chat
 
             do
             {
-                System.out.print(">>> ");
+                System.out.print(">>> \r");
                 eingabe = input.nextLine();
                 dout.writeByte(1);
                 dout.writeUTF(eingabe);
