@@ -9,7 +9,15 @@ public class networkClient2_chat
     public static void main(String[] args) throws IOException, InterruptedException
     {
 
+        backgroundNetwork myThread1 = new backgroundNetwork();
+        backgroundNetwork myThread2 = new backgroundNetwork();
+        myThread1.start();
+        //myThread2.start();
 
+        myThread1.setName("Thread 1");
+        myThread2.setName("Thread 2");
+
+        int port = 6665;
         Scanner input = new Scanner(System.in);
         String eingabe;
         int num=0;
@@ -22,9 +30,9 @@ public class networkClient2_chat
         try{
 
 
-            //Socket socket = new Socket("192.168.178.62",6666);
-            //Socket socket = new Socket("192.168.178.55",6666);
-            Socket socket = new Socket("localhost",6666);
+            //Socket socket = new Socket("192.168.178.62",port);
+            //Socket socket = new Socket("192.168.178.55",port);
+            Socket socket = new Socket("localhost",port);
 
 
             System.out.println("Connected");
@@ -35,15 +43,16 @@ public class networkClient2_chat
 
             do
             {
-                System.out.print("Gebe einen Text ein: ");
+                System.out.print(">>> ");
                 eingabe = input.nextLine();
                 dout.writeByte(1);
                 dout.writeUTF(eingabe);
                 dout.flush();
 
 
-                //out.println(eingabe);
                 num++;
+                //out.println(eingabe);
+
             }while(!eingabe.equalsIgnoreCase("exit"));
 
 
@@ -52,6 +61,8 @@ public class networkClient2_chat
             //dout.close();
             socket.close();
             transmitted= true;
+
+
         }catch(Exception e)
         {
             trys++;
@@ -63,10 +74,12 @@ public class networkClient2_chat
         }
 
         }
+        System.out.println("Joined "+myThread1.getName());
+        myThread1.join();
+
         System.out.println("No Connection.");
         System.out.println("Exiting");
         System.out.print("\033[H\033[2J");
-
 
     }
 
