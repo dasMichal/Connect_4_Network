@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.util.Scanner;
 
-public class ConnectFour_Network extends netwokCore {
+public class ConnectFour_Network extends networkCore {
 
 
     public static void main(String[] args) throws IOException, InterruptedException

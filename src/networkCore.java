@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class netwokCore
+class networkCore
 {
 
 
@@ -146,12 +146,12 @@ class netwokCore
 
 	public static void setIp_adress(String ip_adress)
 	{
-		netwokCore.ip_adresse = ip_adress;
+		networkCore.ip_adresse = ip_adress;
 	}
 
 	public static void setPort(int port)
 	{
-		netwokCore.port = port;
+		networkCore.port = port;
 	}
 }
 
