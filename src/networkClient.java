@@ -15,6 +15,7 @@ public class networkClient
     int num=0;
     try{
         Socket socket = new Socket("localhost",6666);
+
         DataOutputStream dout =new DataOutputStream(socket.getOutputStream());
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));

@@ -22,16 +22,21 @@ public class networkserver {
             //creating socket and waiting for client connection
             //Socket socket = server.accept();
 
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            DataInputStream din = new DataInputStream(socket.getInputStream());
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            String message = in.readLine();
+
+
+            //String message = in.readLine();
             String[] data;
 
+            byte messageType = din.readByte();
+            String message = din.readUTF();
 
             //System.out.println(">>> " + message);
             try
             {
                 data = message.split(",");
+                System.out.println(">>> Message Type: "+messageType);
                 System.out.println(">>> " + message);
                 System.out.println(">>> Player " + data[0] + " Column " + data[1]);
             } catch (Exception e)
@@ -47,6 +52,7 @@ public class networkserver {
         System.out.println("Shutting down Socket server!!");
         //close the ServerSocket object
         server.close();
+
 
     }
     }

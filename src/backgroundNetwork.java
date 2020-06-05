@@ -1,13 +1,12 @@
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.TreeMap;
 
 public class backgroundNetwork extends Thread
 {
-	private static ServerSocket server;
-	//socket server port on which it will listen
-	private static int port = 6666;
+
 	@Override
 	public void run()
 	{
@@ -16,45 +15,58 @@ public class backgroundNetwork extends Thread
 			serverStart();
 		} catch (IOException e)
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println(e);
+			System.out.println("server Start isrt gestoppt");
 		}
 
 	}
 
-	public static void serverStart() throws IOException
-	{
+	public static void serverStart() throws IOException {
 
-		System.out.println("Network Tread Started on Port 6666");
+		//socket server port on which it will listen
+		int port = 6665;
+		ServerSocket server = new ServerSocket(port);
+		System.out.println("Network Tread Started on Port "+ port);
 		//create the socket server object
-		server = new ServerSocket(port);
-		//keep listens indefinitely until receives 'exit' call or program terminates
-		while(true){
+		Socket socket = server.accept();
+		while (true)
+		{
 			//System.out.println("Waiting for the client request");
 			//creating socket and waiting for client connection
-			Socket socket = server.accept();
+			//Socket socket = server.accept();
 
-			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+			DataInputStream din = new DataInputStream(socket.getInputStream());
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			String message = in.readLine();
+
+
+			//String message = in.readLine();
 			String[] data;
 
+			byte messageType = din.readByte();
+			String message = din.readUTF();
 
 			//System.out.println(">>> " + message);
 			try
 			{
 				data = message.split(",");
-				//System.out.println(">>> " + message);
+				//System.out.println("\n>>> Message Type: "+messageType);
+				System.out.println(">> " + message);
 				//System.out.println(">>> Player " + data[0] + " Column " + data[1]);
+				System.out.print(">>> \r");
 			} catch (Exception e)
 			{
 				//System.out.println("oups no splitting");
 			}
 			//out.close();
 			//in.close();
-			socket.close();
+			//socket.close();
 			//terminate the server if client sends exit request
-			if(message.equalsIgnoreCase("exit")) break;
+			if (message.equalsIgnoreCase("exit")) break;
 		}
+
+
+
 		System.out.println("Shutting down Socket server!!");
 		//close the ServerSocket object
 		server.close();
