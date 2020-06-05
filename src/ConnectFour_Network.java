@@ -1,7 +1,7 @@
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class ConnectFour_Network extends netwokCore {
 
@@ -54,7 +54,7 @@ public class ConnectFour_Network extends netwokCore {
 
         do
         {
-            System.out.print("[1] = Yes | [2] = No ");
+            System.out.print("[1] = Yes | [2] = No: ");
             String userChoiceString = input.next();
 
             // check if the user input only contains digits
@@ -86,41 +86,54 @@ public class ConnectFour_Network extends netwokCore {
 
         } while (!inputOnlyDigits);
 
-        boolean checkIP = false;
-        do {
-        System.out.println("Please Input the IP Adress of the Other Player");
-        System.out.println("Example:xxx.xxx.xxx.xxx ");
-        String ip_adress = input.next();
 
-            if (isValidInet4Address(ip_adress)) {
+        /*
+        if (userChoice ==1)
+        {
+
+            InetAddress inetAddress = InetAddress.getLocalHost();
+
+            System.out.println("Please Input the IP Adress of the Other Player");
+            System.out.println("Your IP Adress is "+inetAddress.getHostAddress());
+            System.out.print(">>> ");
+            String ip_adress = input.next();
+
+            if (isValidInet4Address(ip_adress))
+            {
                 System.out.print("The IP address " + ip_adress + " is valid");
                 setIp_adress(ip_adress);
-                checkIP = true;
-            } else {
+            } else
+            {
                 System.out.print("The IP address " + ip_adress + " isn't valid");
             }
-            //TODO: Und Portabfrage. Der Setter setPort ist scoh eingerichtet.
+
+
+
+            //TODO: Kannst du hier eine schleife machen, die solange geht bis eine valide IP eingegeben wurde?
+            //TODO: Und Portabfrage. Der Setter setPort ist schon eingerichtet.
+
         }
-        while (!checkIP);
+        */
 
         if (userChoice == 1)
         {
 
             System.out.println("\nAre you playing as Player[1] or Player[2]?");
-            while (!networkmode) {
-                int eingabe = input.nextInt();
-                if (eingabe == 1) {
-                    networkPlay2 = true;
-                    System.out.println(play2 + " is in Networke Mode");
-                    networkmode = true;
-                } else if (eingabe == 2) {
-                    networkPlay1 = true;
-                    System.out.println(play1 + " is in Networke Mode");
-                    networkmode = true;
-                } else {
-                    System.out.println("Invalid input, try again");
-                }
+            int eingabe = input.nextInt();
+            if (eingabe == 1)
+            {
+                networkPlay2= true;
+                System.out.println(play2+" is in Networke Mode");
+            }else
+            {
+                networkPlay1= true;
+                System.out.println(play1+" is in Networke Mode");
             }
+            //TODO: Abfangen von falschen eingaben muss noch gemacht werden
+
+            networkmode = true;
+
+
         } else
         {
             System.out.println("Okay");
@@ -160,7 +173,7 @@ public class ConnectFour_Network extends netwokCore {
                         }else
                         {
                             s = input.next();
-                            transmittNet(s,play1,misc);
+                            //transmittNet(s,play1);
                         }
 
 
@@ -180,7 +193,7 @@ public class ConnectFour_Network extends netwokCore {
                         }else
                         {
                             s = input.next();
-                            transmittNet(s,play2,misc);
+                            //transmittNet(s,play2,1);
                         }
                     }
 
@@ -227,6 +240,16 @@ public class ConnectFour_Network extends netwokCore {
                 } while (column <= 0 || column > 7 || !inputOnlyDigits);
 
                 insertChip(player, column, array,networkmode);
+                if (!networkPlay1)
+                {
+
+                    transmittNet(s,play1, (byte) 1);
+                }else if (!networkPlay2)
+                {
+
+                    transmittNet(s,play2, (byte) 1);
+
+                }
                 playerID++;
             }
 

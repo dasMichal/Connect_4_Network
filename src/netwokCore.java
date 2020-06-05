@@ -10,7 +10,7 @@ class netwokCore
 
 	//socket server port on which it will listen
 	private static int port = 6666;
-	private static String ip_adress;
+	private static String ip_adresse;
 
 	private static String[] data;
 
@@ -28,25 +28,28 @@ class netwokCore
 			//creating socket and waiting for client connection
 			Socket socket = server.accept();
 
+
 			//PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+			DataInputStream din = new DataInputStream(socket.getInputStream());
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			String message = in.readLine();
+			//String message = in.readLine();
 
-
+			byte messageType = din.readByte();
+			String message = din.readUTF();
 
 			//System.out.println(">>> " + message);
 			try
 			{
 				data = message.split(",");
-				System.out.println(">>> " + message);
-				System.out.println(">>> " + data[0] + " Column " + data[1]);
+				//System.out.println(">>> " + message);
+				//System.out.println(">>> " + data[0] + " Column " + data[1]);
 			} catch (Exception e)
 			{
 				//System.out.println("oups no splitting");
 			}
-			//out.close();
 			//in.close();
 			socket.close();
+
 			//terminate the server if client sends exit request
 			if (message.equalsIgnoreCase("exit"))
 				//break;
@@ -57,32 +60,34 @@ class netwokCore
 
 	}
 
-	public static void transmittNet(String column,String playerID,String misc) throws IOException
+	public static void transmittNet(String column,String playerID,byte type) throws IOException
 	{
 		String eingabe;
 
 		try{
 			//Socket socket = new Socket("localhost",port);
-			//Socket socket = new Socket("192.168.178.55",6666);
-			Socket socket = new Socket(ip_adress,port);
-			DataOutputStream dout =new DataOutputStream(socket.getOutputStream());
+			Socket socket = new Socket("192.168.178.55",6666);
 
+			//Socket socket = new Socket(ip_adress,6666);
+			DataOutputStream dout =new DataOutputStream(socket.getOutputStream());
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			//BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-			String ausgabe;
 
+
+			String ausgabe;
 			String playerS;
 			String columnS;
 			playerS = String.valueOf(playerID);
 			columnS = String.valueOf(column);
 
-			ausgabe = (playerS+","+columnS+","+misc);
-			out.printf(ausgabe);
+			ausgabe = (playerS+","+columnS);
+			//out.printf(ausgabe);
+			dout.writeByte(type);
+			dout.writeUTF(ausgabe);
 
-
-			dout.flush();
-			dout.close();
+			//dout.flush();
+			//dout.close();
 			socket.close();
 
 		}catch(Exception e)
@@ -114,6 +119,7 @@ class netwokCore
 	}
 
 
+
 	public static String[] getData()
 	{
 		return data;
@@ -121,7 +127,7 @@ class netwokCore
 
 	public static void setIp_adress(String ip_adress)
 	{
-		netwokCore.ip_adress = ip_adress;
+		netwokCore.ip_adresse = ip_adress;
 	}
 
 	public static void setPort(int port)
