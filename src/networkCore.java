@@ -20,7 +20,7 @@ class networkCore
 	private static final Pattern IPv4_PATTERN = Pattern.compile(IPV4_REGEX);
 
 	//socket server port on which it will listen
-	private static int port = 6666;
+	private static int port;
 	private static String ip_adress;
 	private static String[] data;
 	int trys = 0;

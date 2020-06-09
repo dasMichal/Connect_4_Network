@@ -126,24 +126,29 @@ public class ConnectFour_Network extends networkCore {
                 }while (!isValidInet4Address(ip_address));
 
                 //TODO: Portabfrage. Der Setter setPort ist schon eingerichtet.
+                System.out.println("Enter the port you want to use:");
+                System.out.println(">>> \r");
+                int port = input.nextInt();
+                networkCore.setPort(port);
 
 
                 System.out.println("\n\nAre you playing as Player[1] or Player[2] ?");
                 System.out.println(">>> ");
-                int eingabe = input.nextInt();
-                if (eingabe == 1)
-                {
-                    networkPlay2= true;
-                    System.out.println(play2+" is in Networke Mode");
-                }else
-                {
-                    networkPlay1= true;
-                    System.out.println(play1+" is in Networke Mode");
+                while (!networkmode) {
+                    int eingabe = input.nextInt();
+                    if (eingabe == 1) {
+                        networkPlay2 = true;
+                        System.out.println(play2 + " is in Networke Mode");
+                        networkmode = true;
+                    } else if (eingabe == 2) {
+                        networkPlay1 = true;
+                        System.out.println(play1 + " is in Networke Mode");
+                        networkmode = true;
+                    } else {
+                        System.out.println("Invalid input, enter 1 or 2:");
+                    }
                 }
                 //TODO: Abfangen von falschen eingaben muss noch gemacht werden
-
-                networkmode = true;
-
                 break;
 
             case 3:
