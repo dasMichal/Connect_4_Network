@@ -55,7 +55,7 @@ public class ConnectFour_Network extends networkCore {
         System.out.print("[1] Singleplayer\n");
         System.out.print("[2] Multiplayer\n");
         System.out.print("[3] Exit\n");
-        System.out.print("-----------------------------------------------\n\n");
+        System.out.print("-----------------------------------------------\n");
 
 
 
@@ -117,7 +117,7 @@ public class ConnectFour_Network extends networkCore {
 
                     if (isValidInet4Address(ip_address))
                     {
-                        System.out.print("The IP address " + ip_address + " is valid");
+                        System.out.print("The IP address " + ip_address + " is valid\n");
                         setIp_address(ip_address);
                     } else
                     {
@@ -126,14 +126,16 @@ public class ConnectFour_Network extends networkCore {
                 }while (!isValidInet4Address(ip_address));
 
                 //TODO: Portabfrage. Der Setter setPort ist schon eingerichtet.
-                System.out.println("Enter the port you want to use:");
-                System.out.println(">>> \r");
+                System.out.println("\nEnter the port you want to use:");
+                System.out.print(">>> \r");
                 int port = input.nextInt();
                 networkCore.setPort(port);
+                System.out.print("Port Set\r");
+                Thread.sleep(1000);
 
 
                 System.out.println("\n\nAre you playing as Player[1] or Player[2] ?");
-                System.out.println(">>> ");
+                System.out.print(">>> \r");
                 while (!networkmode) {
                     int eingabe = input.nextInt();
                     if (eingabe == 1) {

@@ -107,7 +107,7 @@ class networkCore
 				//System.out.println(e);
 				System.out.print("Connection refused. Try:" + trys + "/3\r");
 
-				Thread.sleep(10);
+				Thread.sleep(90);
 
 			}
 		}
