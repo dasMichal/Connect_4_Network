@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Connect_4_Network.iml" filepath="$PROJECT_DIR$/Connect_4_Network.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Network_test/Network_test.iml" filepath="$PROJECT_DIR$/Network_test/Network_test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Other Team/Other Team.iml" filepath="$PROJECT_DIR$/Other Team/Other Team.iml" />
     </modules>
   </component>
 </project>

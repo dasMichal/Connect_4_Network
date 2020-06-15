@@ -10,4 +10,4 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         issue-message: 'Thats an Upsi. Thanks'' first issue'
-        pr-message: 'Welcome to the Connect_4_Network Maddnes'' first pr'
+        pr-message: 'Welcome to the Connect_4_Network project'' first pr'
