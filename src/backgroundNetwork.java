@@ -17,7 +17,7 @@ public class backgroundNetwork extends Thread
 		{
 			//e.printStackTrace();
 			System.out.println(e);
-			System.out.println("server Start isrt gestoppt");
+			System.out.println("Server Start ist gestoppt");
 		}
 
 	}
@@ -25,7 +25,8 @@ public class backgroundNetwork extends Thread
 	public static void serverStart() throws IOException {
 
 		//socket server port on which it will listen
-		int port = 6665;
+		int port = 6666;
+		//int port = 49152;
 		ServerSocket server = new ServerSocket(port);
 		System.out.println("Network Tread Started on Port "+ port);
 		//create the socket server object

@@ -11,13 +11,14 @@ public class networkClient2_chat
 
         backgroundNetwork myThread1 = new backgroundNetwork();
         backgroundNetwork myThread2 = new backgroundNetwork();
-        myThread1.start();
+
         //myThread2.start();
 
         myThread1.setName("Thread 1");
         myThread2.setName("Thread 2");
 
-        int port = 6665;
+        int port = 6666;
+        //int port = 49152;
         Scanner input = new Scanner(System.in);
         String eingabe;
         int num=0;
@@ -29,9 +30,10 @@ public class networkClient2_chat
 
         try{
 
-
+            myThread1.start();
             //Socket socket = new Socket("192.168.178.62",port);
-            Socket socket = new Socket("192.168.178.55",port);
+            //Socket socket = new Socket("192.168.178.55",port);
+            Socket socket = new Socket("87.134.0.9",port);
             //Socket socket = new Socket("localhost",port);
 
 
@@ -59,10 +61,10 @@ public class networkClient2_chat
             //dout.writeUTF("Hello Server");
             //dout.flush();
             //dout.close();
-            socket.close();
+            //socket.close();
             transmitted= true;
 
-
+            break;
         }catch(Exception e)
         {
             trys++;
@@ -74,8 +76,8 @@ public class networkClient2_chat
         }
 
         }
-        System.out.println("Joined "+myThread1.getName());
-        myThread1.join();
+        //System.out.println("Joined "+myThread1.getName());
+        //myThread1.join();
 
         System.out.println("No Connection.");
         System.out.println("Exiting");
@@ -83,42 +85,6 @@ public class networkClient2_chat
 
     }
 
-
-    public static void sendMessage(int player, int column)
-    {
-        String eingabe;
-
-        try{
-            Socket socket = new Socket("localhost",6666);
-            DataOutputStream dout =new DataOutputStream(socket.getOutputStream());
-
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-            String ausgabe;
-            //do
-            // {
-            String playerS;
-            String columnS;
-            playerS = String.valueOf(player);
-            columnS = String.valueOf(column);
-
-            ausgabe = (playerS+","+columnS);
-            out.printf(ausgabe);
-            //out.flush();
-            //System.out.println(ausgabe);
-            //out.println("CLR");
-            //dout.writeUTF(eingabe);
-
-            // }while(!ausgabe.equalsIgnoreCase("exit"));
-
-
-            //dout.writeUTF("Hello Server");
-            dout.flush();
-            dout.close();
-            socket.close();
-        }catch(Exception e){System.out.println(e);}
-    }
 }
 
 
