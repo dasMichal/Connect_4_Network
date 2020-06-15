@@ -12,6 +12,7 @@ public class ConnectFour_Network extends networkCore {
 
 
 
+
         // create an array with the size of the needed connect four field
         char[][] array = new char[6][7];
 
@@ -40,14 +41,6 @@ public class ConnectFour_Network extends networkCore {
         boolean reciver;
 
 
-    /*
-        System.out.print("\n");
-        System.out.print("------------------CONNECT 4--------------------\n");
-        System.out.print("Do you want to play in Online mode?\n");
-        System.out.print("-----------------------------------------------\n\n");
-    */
-
-
 
         System.out.print("\n");
         System.out.print("------------------CONNECT 4--------------------\n");
@@ -56,8 +49,6 @@ public class ConnectFour_Network extends networkCore {
         System.out.print("[2] Multiplayer\n");
         System.out.print("[3] Exit\n");
         System.out.print("-----------------------------------------------\n");
-
-
 
 
         do
@@ -112,26 +103,38 @@ public class ConnectFour_Network extends networkCore {
 
                     System.out.println("Please enter the IP adress of the other player");
                     System.out.println("Your IP Adress is "+inetAddress.getHostAddress());
-                    System.out.print(">>> \r");
+                    System.out.print(">>> ");
                     ip_address = input.next();
 
-                    if (isValidInet4Address(ip_address))
+                    if ((isValidInet4Address(ip_address)) ^ (isValidInet6Address(ip_address) ))
                     {
-                        System.out.print("The IP address " + ip_address + " is valid\n");
+                        //System.out.println(isValidInet6Address(ip_address));
+                        //System.out.println(isValidInet4Address(ip_address));
+
+                        if (isValidInet6Address(ip_address))
+                        {
+                            System.out.print("The IPv6 Address " + ip_address + " is valid\n");
+
+                        }else System.out.print("The IPv4 Address " + ip_address + " is valid\n");
+
+
                         setIp_address(ip_address);
                     } else
                     {
-                        System.out.print("The IP address " + ip_address + " isn't valid");
-                    }
-                }while (!isValidInet4Address(ip_address));
+                        //System.out.println(isValidInet6Address(ip_address));
+                        //System.out.println(isValidInet4Address(ip_address));
 
-                //TODO: Portabfrage. Der Setter setPort ist schon eingerichtet.
+                        System.out.print("The IP address " + ip_address + " isn't valid\n");
+                    }
+                }while ((!isValidInet4Address(ip_address)) ^ (isValidInet6Address(ip_address) ));
+
+
                 System.out.println("\nEnter the port you want to use:");
                 System.out.print(">>> \r");
                 int port = input.nextInt();
                 networkCore.setPort(port);
-                System.out.print("Port Set\r");
-                Thread.sleep(1000);
+                System.out.println("Port set to "+port);
+
 
 
                 System.out.println("\n\nAre you playing as Player[1] or Player[2] ?");
@@ -190,9 +193,13 @@ public class ConnectFour_Network extends networkCore {
 
                         if (networkPlay1)
                         {
+                            //test myThread1 = new test();
                             System.out.println("Waiting for network answer");
                             reciver=true;
+                            //myThread1.start();
                             reciverNet();
+                            //myThread1.interrupt();
+                            //myThread1.join();
                             String[] dat = getData();
                             s = dat[1];
                         }else
@@ -211,9 +218,13 @@ public class ConnectFour_Network extends networkCore {
 
                         if (networkPlay2)
                         {
+                            //test myThread1 = new test();
                             System.out.println("Waiting for network answer");
                             reciver=true;
+                            //myThread1.start();
                             reciverNet();
+                            //myThread1.interrupt();
+                            //myThread1.join();
                             String[] dat = getData();
                             s = dat[1];
                         }else

@@ -16,6 +16,10 @@ class networkCore
 					"(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\." +
 					"(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
 
+	private static final Pattern IPV6_STD_PATTERN = Pattern.compile("^(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$");
+
+	private static final Pattern IPV6_HEX_COMPRESSED_PATTERN = Pattern.compile("^((?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?)::((?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?)$");
+
 
 	private static final Pattern IPv4_PATTERN = Pattern.compile(IPV4_REGEX);
 
@@ -27,7 +31,6 @@ class networkCore
 
 	static void reciverNet() throws IOException
 	{
-
 
 		//create the socket server object
 		ServerSocket server = new ServerSocket(port);
@@ -70,11 +73,10 @@ class networkCore
 		{
 			try
 			{
-
 				//Socket socket = new Socket("localhost",port);
 				//Socket socket = new Socket("192.168.178.55", port);
 				//Socket socket = new Socket("192.168.178.62",port);
-				Socket socket = new Socket(ip_adress,6666);
+				Socket socket = new Socket(ip_adress,port);
 
 				System.out.print("Connected\r");
 
@@ -125,6 +127,27 @@ class networkCore
 
 		Matcher matcher = IPv4_PATTERN.matcher(ip);
 		return matcher.matches();
+	}
+
+
+	public static boolean isIPv6StdAddress(final String input) {
+
+		return IPV6_STD_PATTERN.matcher(input).matches();
+	}
+
+	public static boolean isIPv6HexCompressedAddress(final String input) {
+
+		return IPV6_HEX_COMPRESSED_PATTERN.matcher(input).matches();
+	}
+
+	public static boolean isValidInet6Address(final String ip) {
+
+		if (ip == null)
+		{
+			return false;
+		}
+
+		return isIPv6StdAddress(ip) || isIPv6HexCompressedAddress(ip);
 	}
 
 
