@@ -1,7 +1,6 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.regex.Matcher;
@@ -17,17 +16,14 @@ class networkCore
 					"(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
 
 	private static final Pattern IPV6_STD_PATTERN = Pattern.compile("^(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$");
-
 	private static final Pattern IPV6_HEX_COMPRESSED_PATTERN = Pattern.compile("^((?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?)::((?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?)$");
-
-
 	private static final Pattern IPv4_PATTERN = Pattern.compile(IPV4_REGEX);
 
 	//socket server port on which it will listen
 	private static int port;
 	private static String ip_adress;
 	private static String[] data;
-	int trys = 0;
+
 
 	static void reciverNet() throws IOException
 	{
@@ -38,8 +34,7 @@ class networkCore
 		//creating socket and waiting for client connection
 		Socket socket = server.accept();
 
-
-		PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+		//PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 		DataInputStream din = new DataInputStream(socket.getInputStream());
 		//BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		//String message = in.readLine();
@@ -76,12 +71,12 @@ class networkCore
 				//Socket socket = new Socket("localhost",port);
 				//Socket socket = new Socket("192.168.178.55", port);
 				//Socket socket = new Socket("192.168.178.62",port);
-				Socket socket = new Socket(ip_adress,port);
+				Socket socket = new Socket(ip_adress, port);
 
 				System.out.print("Connected\r");
 
 				DataOutputStream dout = new DataOutputStream(socket.getOutputStream());
-				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+				//PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 				//BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
 
@@ -115,7 +110,6 @@ class networkCore
 		}
 
 
-
 	}
 
 	public static boolean isValidInet4Address(String ip)
@@ -130,17 +124,20 @@ class networkCore
 	}
 
 
-	public static boolean isIPv6StdAddress(final String input) {
+	public static boolean isIPv6StdAddress(final String input)
+	{
 
 		return IPV6_STD_PATTERN.matcher(input).matches();
 	}
 
-	public static boolean isIPv6HexCompressedAddress(final String input) {
+	public static boolean isIPv6HexCompressedAddress(final String input)
+	{
 
 		return IPV6_HEX_COMPRESSED_PATTERN.matcher(input).matches();
 	}
 
-	public static boolean isValidInet6Address(final String ip) {
+	public static boolean isValidInet6Address(final String ip)
+	{
 
 		if (ip == null)
 		{
