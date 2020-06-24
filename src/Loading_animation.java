@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 //Diese Klasse ist einzig und allein dafür da um einen rotieren ladebalken zu erzeugen
